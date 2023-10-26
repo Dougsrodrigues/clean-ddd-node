@@ -1,0 +1,2 @@
+Agregados => Ter entidades que dependem uma da outra e são criadas/editadas em uma mesmo momento
+  por exemplo Perguntas e Anexos
