@@ -1,8 +1,9 @@
 import { Either, right } from "@/core/either"
 import { UniqueEntityId } from "@/core/entities/unique-entity-id"
 import { Question } from "../../enterprise/entities/question"
-import { QuestionAttachment } from "../../enterprise/entities/question-attachement"
+import { QuestionAttachmentList } from "../../enterprise/entities/question-attachment-list"
 import { QuestionRepository } from "../repositories/question-repository"
+import { QuestionAttachment } from "../../enterprise/entities/question-attachment"
 
 interface CreateQuestionUseRequest {
   authorId: string
@@ -25,8 +26,6 @@ export class CreateQuestionUseCase {
     attachmenstId
   }: CreateQuestionUseRequest): Promise<CreateQuestionUseResponse> {
 
-
-
     const question = Question.create({
       authorId: new UniqueEntityId(authorId),
       title,
@@ -40,7 +39,7 @@ export class CreateQuestionUseCase {
       })
     })
 
-    question.attachments = questionAttachment
+    question.attachments = new QuestionAttachmentList(questionAttachment)
 
     await this.questionRepository.create(question)
 
